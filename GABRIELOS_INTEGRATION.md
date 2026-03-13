@@ -1,12 +1,12 @@
-# Sentinel Integration Guide for OpenClaw Fork
+# GabrielOS Integration Guide for OpenClaw Fork
 
 ## Overview
-This guide shows how to integrate Sentinel's Smart Router into the OpenClaw request flow.
+This guide shows how to integrate GabrielOS's Smart Router into the OpenClaw request flow.
 
 ## Architecture
 
 ```
-Discord Message → OpenClaw Gateway → Sentinel Interceptor → Smart Router
+Discord Message → OpenClaw Gateway → GabrielOS Interceptor → Smart Router
                                                             ↓
                                                     ┌───────┼───────┐
                                                     ↓       ↓       ↓
@@ -17,12 +17,12 @@ Discord Message → OpenClaw Gateway → Sentinel Interceptor → Smart Router
 
 ## Integration Steps
 
-### Step 1: Import Sentinel
+### Step 1: Import GabrielOS
 
 In `src/commands/agent.ts` (or wherever main request handling happens):
 
 ```typescript
-import { sentinelInterceptor } from '../sentinel/index.js';
+import { gabrielosInterceptor } from '../gabrielos/index.js';
 ```
 
 ### Step 2: Wrap Request Handler
@@ -38,7 +38,7 @@ async function handleRequest(request: string, context: Context) {
 
 // AFTER:
 async function handleRequest(request: string, context: Context) {
-  return await sentinelInterceptor(
+  return await gabrielosInterceptor(
     {
       request,
       userId: context.userId,
@@ -51,13 +51,13 @@ async function handleRequest(request: string, context: Context) {
 }
 ```
 
-### Step 3: Configure Sentinel
+### Step 3: Configure GabrielOS
 
-Add to your config (e.g., `config/sentinel.json`):
+Add to your config (e.g., `config/gabrielos.json`):
 
 ```json
 {
-  "sentinel": {
+  "gabrielos": {
     "smartRouter": {
       "enabled": true,
       "defaultLevel": "rag",
@@ -97,13 +97,13 @@ mkdir -p memory/{core,session,experiences,decisions,traces}
 
 ```bash
 # Test RAG (should be <100ms, 0 tokens)
-echo "What is my shopping list?" | sentinel classify
+echo "What is my shopping list?" | gabrielos classify
 
 # Test Workflow (should be <500ms, 1000 tokens)
-echo "Run backup now" | sentinel classify
+echo "Run backup now" | gabrielos classify
 
 # Test Agent (should trigger AI)
-echo "Build a trading bot" | sentinel classify
+echo "Build a trading bot" | gabrielos classify
 ```
 
 ## Expected Performance

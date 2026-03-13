@@ -9,10 +9,10 @@ import { createSubsystemLogger } from "../logging/subsystem.js";
 const log = createSubsystemLogger("commands/agent");
 
 // SENTINEL: Import smart router for request classification
-import { classifyRequest, processRequest } from "../sentinel/index.js";
-import { retrieve } from "../sentinel/unified-memory.js";
-import { createTrace } from "../sentinel/trace-standard.js";
-import { logDecision } from "../sentinel/decision-log.js";
+import { classifyRequest, processRequest } from "../gabrielos/index.js";
+import { retrieve } from "../gabrielos/unified-memory.js";
+import { createTrace } from "../gabrielos/trace-standard.js";
+import { logDecision } from "../gabrielos/decision-log.js";
 import {
   listAgentIds,
   resolveAgentDir,

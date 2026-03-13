@@ -1,16 +1,16 @@
 /**
- * Sentinel Request Interceptor
+ * GabrielOS Request Interceptor
  * 
  * Wraps the OpenClaw request flow to add Smart Router classification
  * before AI model selection. This is cleaner than modifying core internals.
  */
 
-import { classifyRequest, processRequest } from '../lib/sentinel/smart-router.js';
-import { retrieve } from '../lib/sentinel/unified-memory.js';
-import { createTrace } from '../lib/sentinel/trace-standard.js';
-import { logDecision } from '../lib/sentinel/decision-log.js';
+import { classifyRequest, processRequest } from '../lib/gabrielos/smart-router.js';
+import { retrieve } from '../lib/gabrielos/unified-memory.js';
+import { createTrace } from '../lib/gabrielos/trace-standard.js';
+import { logDecision } from '../lib/gabrielos/decision-log.js';
 
-export interface SentinelContext {
+export interface GabrielOSContext {
   request: string;
   userId: string;
   channel: string;
@@ -21,8 +21,8 @@ export interface SentinelContext {
  * Main entry point - wraps OpenClaw's request handling
  * Call this BEFORE calling the original OpenClaw agent handler
  */
-export async function sentinelInterceptor(
-  context: SentinelContext,
+export async function gabrielosInterceptor(
+  context: GabrielOSContext,
   originalHandler: () => Promise<any>
 ): Promise<any> {
   const { request, userId, channel, sessionKey } = context;
@@ -221,4 +221,4 @@ function generateFromMemories(request: string, memories: any[]): string {
   return `Based on my memory:\n\n${relevant}`;
 }
 
-export default sentinelInterceptor;
+export default gabrielosInterceptor;

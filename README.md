@@ -1,12 +1,12 @@
-# GabrielOS
+# Gabriel
 
 **The Cognitive AI Operating System**
 
-Built on OpenClaw foundation with advanced memory architecture, intelligent request routing, and 280+ ready-to-use skills.
+Built with advanced memory architecture, intelligent request routing, and 280+ ready-to-use skills.
 
-## What is GabrielOS?
+## What is Gabriel?
 
-GabrielOS is a production-ready AI agent runtime that automatically classifies incoming requests and routes them intelligently:
+Gabriel is a production-ready AI agent runtime that automatically classifies incoming requests and routes them intelligently:
 
 - **RAG Mode** → Memory lookup only (0 AI tokens, <100ms)
 - **Workflow Mode** → Deterministic execution (1,000 tokens, <500ms)
@@ -31,8 +31,8 @@ GabrielOS is a production-ready AI agent runtime that automatically classifies i
 
 ```bash
 # 1. Clone
-git clone https://github.com/yourusername/gabrielos.git
-cd gabrielos
+git clone https://github.com/CryptoKnightKid/gabriel.git
+cd gabriel
 
 # 2. Install dependencies
 pnpm install
@@ -49,7 +49,7 @@ pnpm start
 ## Architecture
 
 ```
-User Request → GabrielOS Router → Classification
+User Request → Gabriel Router → Classification
                               ↓
                     ┌─────────┼─────────┐
                     ↓         ↓         ↓
@@ -74,10 +74,16 @@ User Request → GabrielOS Router → Classification
 | Workflow | <500ms | 1,000 | ~80% |
 | Agent | 2-5s | Variable | Baseline |
 
+## Docker
+
+```bash
+docker-compose up -d
+```
+
 ## License
 
 MIT
 
 ---
 
-**GabrielOS** — AI that remembers, learns, and saves you money.
+**Gabriel** — AI that remembers, learns, and saves you money.

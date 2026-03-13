@@ -1,0 +1,77 @@
+{
+  "_comment": "Gabriel Configuration - Copy to config.json and fill in your values",
+  
+  "gabriel": {
+    "smartRouter": {
+      "enabled": true,
+      "rag": {
+        "maxLatency": 100,
+        "minConfidence": 0.5
+      },
+      "workflow": {
+        "maxLatency": 500,
+        "fixedTokens": 1000
+      },
+      "agent": {
+        "checkpointThreshold": "high",
+        "maxTokens": 100000
+      }
+    },
+    "memory": {
+      "compactionAt": 0.8,
+      "autoWriteInterval": 1800000,
+      "cleanupInterval": 3600000,
+      "namespaces": {
+        "core": { "weight": 0.4, "ttl": null },
+        "session": { "weight": 0.3, "ttl": "1h" },
+        "experiences": { "weight": 0.2, "ttl": "90d" }
+      }
+    }
+  },
+
+  "ai": {
+    "defaultModel": "openai/gpt-4",
+    "fallbackModel": "anthropic/claude-3-opus",
+    "apiKeys": {
+      "openai": "sk-your-openai-key-here",
+      "anthropic": "sk-ant-your-anthropic-key-here"
+    }
+  },
+
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "token": "your-discord-bot-token-here",
+      "allowedGuilds": [],
+      "allowedChannels": []
+    },
+    "telegram": {
+      "enabled": false,
+      "token": "your-telegram-bot-token-here",
+      "allowedUsers": []
+    }
+  },
+
+  "memory": {
+    "baseDir": "./memory",
+    "autoBackup": true,
+    "backupInterval": "24h"
+  },
+
+  "skills": {
+    "autoLoad": true,
+    "matchThreshold": 0.6,
+    "maxMatches": 3,
+    "directories": ["./Skills", "./custom-skills"]
+  },
+
+  "observability": {
+    "tracing": {
+      "enabled": true,
+      "retentionDays": 30
+    },
+    "decisionLog": {
+      "enabled": true
+    }
+  }
+}

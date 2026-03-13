@@ -1,0 +1,76 @@
+[Conversation Transcript]
+
+(Note: System and internal tool messages omitted. This file contains the user-visible conversation content.)
+
+User: Don't say pilot first just write these are the details on what we would like to do and sound excited
+Assistant: Edited collaboration email tone.
+
+User: Float the idea that the first workshop could be a side event after the XRP Australia event
+Assistant: Updated approach section.
+
+User: No just write the idea of the first Pilot being in XRP Australia if time allows
+Assistant: Adjusted wording.
+
+User: Don't talk about leverage or existing audience
+Assistant: Refined approach language.
+
+User: Create an email to James Crypto Guru asking about affiliate collaboration
+Assistant: Drafted short outreach email.
+
+User: Use the name Sammie and keep it short
+Assistant: Updated sender name and tone.
+
+User: Don't mention tracked signups
+Assistant: Rewrote sales-oriented copy.
+
+User: Create another for Blockchain Racer team
+Assistant: Drafted affiliate email.
+
+User: Disregard education-led part, affiliate only
+Assistant: Adjusted framing.
+
+User: Provided KOL performance data and campaign ideas
+Assistant: Structured two-offer proposal.
+
+User: Upfront payment details and added perks
+Assistant: Included commissions and perks.
+
+User: You missed the commission share
+Assistant: Corrected offer.
+
+User: This is a follow-up after a call
+Assistant: Adjusted tone.
+
+User: Provided full email draft and asked for restructuring
+Assistant: Clarified structure.
+
+---
+Final Email (Unchanged Deal Terms):
+
+Hey CryptoSamantha,
+
+It was great to jump on a call with you and I really feel we could have a great collaboration together. Thank you for sending the data through from your previous deals and data.
+
+Based on that, I’m pleased to formally offer you two collaboration options we’d be keen to move forward with.
+
+Option A) Campaign-Led Launch
+Upfront Payment: $4,000
+Month 1: 0% trading fees for new users + campaign activation (e.g. Bonus Wheel or Giveaway)
+Month 2 onward: 70% commission share, contingent on hitting the agreed Month 1 volume benchmark of 15,000,000 trading volume (leeway applied for Month 1)
+Month 3: Follow-up campaigns to attract newer users and activate previous referrals
+
+Option B) Performance-Led Partnership
+Upfront support: $2,000
+Month 1: Campaign activation (e.g. Bonus Wheel or Giveaway) + 60% revenue share, with the opportunity to increase to 70% after demonstrating consistent trading volume (leeway applied for Month 1)
+Month 3: Follow-up campaigns
+
+Other Perks:
+Ongoing platform and campaign support
+Priority access to future activations
+Access to private support groups and Support Lark Bot
+1-1 BD access with myself
+After a 3-month cool-off period: Official MEXC Affiliate status + Twitter Badge
+
+Best,
+Sammie
+MEXC Australia

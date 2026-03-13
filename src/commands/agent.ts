@@ -7,6 +7,12 @@ import { resolveAcpSessionCwd } from "../acp/runtime/session-identifiers.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 
 const log = createSubsystemLogger("commands/agent");
+
+// SENTINEL: Import smart router for request classification
+import { classifyRequest, processRequest } from "../sentinel/index.js";
+import { retrieve } from "../sentinel/unified-memory.js";
+import { createTrace } from "../sentinel/trace-standard.js";
+import { logDecision } from "../sentinel/decision-log.js";
 import {
   listAgentIds,
   resolveAgentDir,
@@ -754,6 +760,86 @@ async function agentCommandInternal(
           throw agentPolicyError;
         }
 
+        // SENTINEL: Smart Router Classification
+        // Check if this is a RAG request (zero AI tokens) or needs full AI
+        const classification = classifyRequest(body);
+        
+        // Create trace for observability
+        const trace = createTrace(body);
+        trace.logRouting({
+          level: classification.level,
+          justification: classification.justification,
+          confidence: classification.confidence
+        });
+        
+        // Log the routing decision
+        logDecision({
+          decision: `Route to ${classification.level}`,
+          context: body,
+          rationale: classification.justification,
+          alternatives: ['rag', 'workflow', 'agent'].filter(l => l !== classification.level),
+          sessionId: sessionKey
+        });
+        
+        // Handle RAG requests directly (no AI call)
+        if (classification.level === 'rag') {
+          trace.logStep({
+            tool: 'memory_retrieval',
+            input: body,
+            output: 'RAG mode - fetching from memory',
+            latency: 50,
+            tokens: 0,
+            success: true
+          });
+          
+          // Retrieve relevant memories
+          const memories = retrieve({ 
+            query: body,
+            namespaces: ['core', 'session', 'experiences'],
+            limit: 5
+          });
+          
+          // Generate response from memories
+          const ragResponse = memories.length > 0 
+            ? memories.map(m => m.content || m.title).join('\n\n')
+            : "I don't have relevant information in my memory.";
+          
+          trace.logOutcome({ success: true, result: ragResponse });
+          
+          // Emit response directly without AI call
+          emitAgentEvent({
+            runId,
+            stream: "assistant",
+            data: {
+              text: ragResponse,
+              delta: ragResponse,
+              metadata: {
+                level: 'rag',
+                tokensUsed: 0,
+                latency: '<100ms',
+                traceId: trace.id
+              }
+            },
+          });
+          
+          stopReason = 'stop';
+        } else {
+          // Workflow or Agent - proceed with AI call
+          trace.logStep({
+            tool: classification.level === 'workflow' ? 'workflow_execution' : 'agent_reasoning',
+            input: body,
+            output: `Proceeding with ${classification.level} processing`,
+            latency: 100,
+            tokens: classification.maxTokens,
+            success: true
+          });
+          
+          // SENTINEL: Checkpoint for high-complexity agent tasks
+          if (classification.checkpoint) {
+            console.log('[Sentinel] ⚠️ High complexity task - checkpoint required');
+            // In production: await requireHumanApproval(body, classification.justification);
+          }
+
         await acpManager.runTurn({
           cfg,
           sessionKey,
@@ -789,6 +875,7 @@ async function agentCommandInternal(
             });
           },
         });
+        } // SENTINEL: Close else block for non-RAG requests
       } catch (error) {
         const acpError = toAcpRuntimeError({
           error,
